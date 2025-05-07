@@ -1,14 +1,9 @@
-from typing import Optional
-
 from fastapi import FastAPI
+from controller.orders_router import orders_routers
+from controller.products_router import products_router
+from controller.user_router import user_router
 
-app = FastAPI()
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+app=FastAPI()
+app.include_router(orders_routers,prefix='/api',tags=['hello'])
+app.include_router(products_router,prefix='/api',tags=['users'])
+app.include_router(user_router,prefix='/api',tags=['users'])
